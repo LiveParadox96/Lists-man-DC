@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import React from "react";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableHighlight,
+} from "react-native";
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface FleshProps {
-  handlePress: () => void;
+  navigation: StackNavigationProp<any, any>;
+  onPress: () => void;
   isSecretVisible: boolean;
 }
 
-const Flesh: React.FC<FleshProps> = ({ handlePress, isSecretVisible }) => {
-  // const oldImage = setImagePerson(("./../../assets/Barry.png"));
-  // const newImage = setImagePerson(("./../../assets/flesh.png"));
+const Flesh: React.FC<FleshProps> = ({ navigation, onPress, isSecretVisible }) => {
   const description = isSecretVisible
     ? "Самый быстрый человек на Земле. Создатель Спидфорса"
     : "Судмедэксперт, криминалист";
@@ -16,11 +22,13 @@ const Flesh: React.FC<FleshProps> = ({ handlePress, isSecretVisible }) => {
   const newImage = require("./../../assets/flesh.png");
   const name = isSecretVisible ? "Flesh" : "Barry Allen";
   const imagePerson = isSecretVisible ? newImage : oldImage;
+
+
   return (
     <View style={styles.person}>
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableHighlight onPress={() => navigation.navigate('Details', { itemId: 1 })}>
         <Image source={imagePerson} style={styles.photo} />
-      </TouchableOpacity>
+      </TouchableHighlight>
       <Text style={styles.name}>{name}</Text>
       <View style={styles.characteristic}>
         <Text>Возраст</Text>
@@ -41,6 +49,7 @@ const styles = StyleSheet.create({
   person: {
     flexDirection: "column",
     alignItems: "center",
+    height: 300,
   },
   photo: {
     height: 180,
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
-    marginBottom: 15,
   },
 });
+
 export default Flesh;

@@ -3,11 +3,10 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
 interface ButtonProps {
   onPress: () => void;
-  title: string;
   isSecretVisible: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ onPress, title, isSecretVisible }) => {
+const Button: React.FC<ButtonProps> = ({ onPress, isSecretVisible }) => {
   const buttonTitle = isSecretVisible ? "Скрыть личность" : "Раскрыть личность";
 
   return (
