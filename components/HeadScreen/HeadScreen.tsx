@@ -18,11 +18,7 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.flesh}>
-        <Flesh
-          isSecretVisible={isSecretVisible}
-          onPress={handlePress}
-          navigation={navigation}
-        />
+        <Flesh isSecretVisible={isSecretVisible} navigation={navigation} />
       </View>
       <Button onPress={handlePress} isSecretVisible={isSecretVisible} />
     </View>
@@ -32,7 +28,7 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "gray",
     alignItems: "center",
     justifyContent: "center",
   },

@@ -10,11 +10,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 interface FleshProps {
   navigation: StackNavigationProp<any, any>;
-  onPress: () => void;
   isSecretVisible: boolean;
 }
 
-const Flesh: React.FC<FleshProps> = ({ navigation, onPress, isSecretVisible }) => {
+const Flesh: React.FC<FleshProps> = ({ navigation,  isSecretVisible }) => {
   const description = isSecretVisible
     ? "Самый быстрый человек на Земле. Создатель Спидфорса"
     : "Судмедэксперт, криминалист";

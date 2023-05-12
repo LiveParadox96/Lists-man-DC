@@ -16,8 +16,8 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HeadScreen} />
-        <Stack.Screen name="Details" component={FleshInfo} />
+        <Stack.Screen name="Home" component={HeadScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="Details" component={FleshInfo}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
