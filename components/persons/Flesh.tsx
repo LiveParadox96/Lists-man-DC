@@ -6,14 +6,14 @@ import {
   Text,
   TouchableHighlight,
 } from "react-native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 
 interface FleshProps {
   navigation: StackNavigationProp<any, any>;
   isSecretVisible: boolean;
 }
 
-const Flesh: React.FC<FleshProps> = ({ navigation,  isSecretVisible }) => {
+const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
   const description = isSecretVisible
     ? "Самый быстрый человек на Земле. Создатель Спидфорса"
     : "Судмедэксперт, криминалист";
@@ -22,10 +22,11 @@ const Flesh: React.FC<FleshProps> = ({ navigation,  isSecretVisible }) => {
   const name = isSecretVisible ? "Flesh" : "Barry Allen";
   const imagePerson = isSecretVisible ? newImage : oldImage;
 
-
   return (
     <View style={styles.person}>
-      <TouchableHighlight onPress={() => navigation.navigate('Details', { itemId: 1 })}>
+      <TouchableHighlight
+        onPress={() => navigation.navigate("Details", { itemId: 1 })}
+      >
         <Image source={imagePerson} style={styles.photo} />
       </TouchableHighlight>
       <Text style={styles.name}>{name}</Text>

@@ -1,17 +1,14 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
-interface ButtonProps {
+type ButtonArrayNextProps = {
   onPress: () => void;
-  isSecretVisible: boolean;
-}
+};
 
-const Button: React.FC<ButtonProps> = ({ onPress, isSecretVisible }) => {
-  const buttonTitle = isSecretVisible ? "Скрыть личность" : "Раскрыть личность";
-
+const ButtonArrayNext: React.FC<ButtonArrayNextProps> = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{buttonTitle}</Text>
+      <Text style={styles.buttonText}>&gt;</Text>
     </TouchableOpacity>
   );
 };
@@ -28,8 +25,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
-    alignSelf: 'center'
+    alignSelf: "center",
   },
 });
 
-export default Button;
+export default ButtonArrayNext;
