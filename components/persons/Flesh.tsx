@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -23,7 +23,7 @@ const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
   const [description, setDescription] = useState("");
   const [age, setAge] = useState(0);
   const [city, setCity] = useState("");
-
+ 
   useEffect(() => {
     const newDescription = isSecretVisible
       ? "Самый быстрый человек на Земле. Создатель Спидфорса"
@@ -39,7 +39,9 @@ const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
   }, [isSecretVisible]);
 
   return (
-    <View style={styles.person}>
+    <View
+      style={styles.person}
+    >
       <TouchableHighlight
         onPress={() => navigation.navigate("Flesh", { itemId: 1 })}
       >

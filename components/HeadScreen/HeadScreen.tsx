@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import Flesh from "./../../components/persons/Flesh";
 import ButtonArrayNext from "../UI/ButtonArrayNext";
@@ -58,8 +58,30 @@ const HeadScreen: React.FC<HeadScreenProps> = ({ navigation }) => {
     setIsSecretVisible(!isSecretVisible);
   };
 
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (event: any) => {
+    touchStartX.current = event.nativeEvent.pageX;
+  };
+
+  const handleTouchEnd = (event: any) => {
+    touchEndX.current = event.nativeEvent.pageX;
+    const difference = touchStartX.current - touchEndX.current;
+
+    if (difference > 50) {
+      nextSlide();
+    } else if (difference < -50) {
+      prevSlide();
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <View>{slides[currentSlide].component}</View>
       <View style={styles.buttonContainer}>
         <ButtonArrayPrev onPress={prevSlide} />
