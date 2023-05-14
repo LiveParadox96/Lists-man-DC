@@ -22,7 +22,7 @@ const App: React.FC = () => {
           component={HeadScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Details" component={FleshInfo} />
+        <Stack.Screen name="Flesh" component={FleshInfo} />
         <Stack.Screen name="Wonder Woman" component={WanderWumenInfo} />
       </Stack.Navigator>
     </NavigationContainer>

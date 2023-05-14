@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import NewPersons from "./NewPersons/NewPersons";
 
 interface FleshProps {
   navigation: StackNavigationProp<any, any>;
@@ -14,14 +15,26 @@ interface FleshProps {
 }
 
 const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
-  const description = isSecretVisible
-    ? "Дочь Зевса, полубогиня. Сильна, вынослива,  имеет, имеет браслеты Победы"
-    : "Род деятельности - неизвестно";
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [age, setAge] = useState(0);
+  const [city, setCity] = useState("");
+
   const oldImage = require("./../../assets/wander_head.png");
   const newImage = require("./../../assets/ww_head_old_back.png");
-  const name = isSecretVisible ? "Wonder Woman" : "Diana Prince";
   const imagePerson = isSecretVisible ? newImage : oldImage;
-
+  useEffect(() => {
+    const newName = isSecretVisible ? "Wonder Woman" : "Diana Prince";
+    const newDescription = isSecretVisible
+      ? "Дочь Зевса, полубогиня. Сильна, вынослива,  имеет, имеет браслеты Победы"
+      : "Род деятельности - неизвестно";
+    const newAge = 5000;
+    const newCity = "Олимп";
+    setName(newName);
+    setDescription(newDescription);
+    setAge(newAge);
+    setCity(newCity);
+  }, [isSecretVisible]);
   return (
     <View style={styles.person}>
       <TouchableHighlight
@@ -29,18 +42,7 @@ const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
       >
         <Image source={imagePerson} style={styles.photo} />
       </TouchableHighlight>
-      <Text style={styles.name}>{name}</Text>
-      <View style={styles.characteristic}>
-        <Text>Возраст</Text>
-        <Text>5000 лет</Text>
-      </View>
-      <View style={styles.characteristic}>
-        <Text>Местоположение</Text>
-        <Text>Нью Йорк</Text>
-      </View>
-      <View style={styles.description}>
-        <Text style={styles.descriptionText}>{description}</Text>
-      </View>
+      <NewPersons name={name} age={age} city={city} description={description} />
     </View>
   );
 };

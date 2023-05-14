@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import NewPersons from "./NewPersons/NewPersons";
 
 interface FleshProps {
   navigation: StackNavigationProp<any, any>;
@@ -14,36 +15,41 @@ interface FleshProps {
 }
 
 const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
-  const description = isSecretVisible
-    ? "Самый быстрый человек на Земле. Создатель Спидфорса"
-    : "Судмедэксперт, криминалист";
   const oldImage = require("./../../assets/Barry.png");
   const newImage = require("./../../assets/flesh.png");
-  const name = isSecretVisible ? "Flesh" : "Barry Allen";
   const imagePerson = isSecretVisible ? newImage : oldImage;
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [age, setAge] = useState(0);
+  const [city, setCity] = useState("");
+
+  useEffect(() => {
+    const newDescription = isSecretVisible
+      ? "Самый быстрый человек на Земле. Создатель Спидфорса"
+      : "Судмедэксперт, криминалист";
+    const newName = isSecretVisible ? "Flesh" : "Barry Allen";
+    const newAge = 26;
+    const newCity = "Ванкувер" 
+
+    setName(newName);
+    setDescription(newDescription);
+    setAge(newAge);
+    setCity(newCity);
+  }, [isSecretVisible]);
 
   return (
     <View style={styles.person}>
       <TouchableHighlight
-        onPress={() => navigation.navigate("Details", { itemId: 1 })}
+        onPress={() => navigation.navigate("Flesh", { itemId: 1 })}
       >
         <Image source={imagePerson} style={styles.photo} />
       </TouchableHighlight>
-      <Text style={styles.name}>{name}</Text>
-      <View style={styles.characteristic}>
-        <Text>Возраст</Text>
-        <Text>26 лет</Text>
-      </View>
-      <View style={styles.characteristic}>
-        <Text>Местоположение</Text>
-        <Text>Ванкувер</Text>
-      </View>
-      <View style={styles.description}>
-        <Text style={styles.descriptionText}>{description}</Text>
-      </View>
+      <NewPersons name={name} age={age} city={city} description={description} />
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   person: {
