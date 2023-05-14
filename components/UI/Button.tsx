@@ -6,15 +6,19 @@ interface ButtonProps {
   isSecretVisible: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ onPress, isSecretVisible }) => {
-  const buttonTitle = isSecretVisible ? "Скрыть личность" : "Раскрыть личность";
+const Button: React.FC<ButtonProps> = React.memo(
+  ({ onPress, isSecretVisible }) => {
+    const buttonTitle = isSecretVisible
+      ? "Скрыть личность"
+      : "Раскрыть личность";
 
-  return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{buttonTitle}</Text>
-    </TouchableOpacity>
-  );
-};
+    return (
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text style={styles.buttonText}>{buttonTitle}</Text>
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   button: {
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
-    alignSelf: 'center'
+    alignSelf: "center",
   },
 });
 

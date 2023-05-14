@@ -1,38 +1,56 @@
-import { StatusBar } from "expo-status-bar";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import Flesh from "./../../components/persons/Flesh";
-import Button from "./../../components/UI/Button";
-import React, { useState, useRef } from "react";
-import { SwiperFlatList } from "react-native-swiper-flatlist";
-import WanderWumen from "../persons/WanderWumen";
-import ButtonArrayPrev from "../UI/ButtonArrayPrev";
 import ButtonArrayNext from "../UI/ButtonArrayNext";
+import ButtonArrayPrev from "../UI/ButtonArrayPrev";
+import WanderWumen from "../persons/WanderWumen";
 import GreenLantern from "../persons/GreenLantern";
+import Button from "./../UI/Button";
 
-type HomeScreenProps = {
+type Slide = {
+  component: JSX.Element;
+};
+
+type HeadScreenProps = {
   navigation: any;
 };
 
-const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const HeadScreen: React.FC<HeadScreenProps> = ({ navigation }) => {
   const [isSecretVisible, setIsSecretVisible] = useState(false);
-  const swiperRef = useRef<SwiperFlatList | null>(null);
-  const [countSlider, setCountSlider] = useState(0);
-  const slides = [
-    <Flesh isSecretVisible={isSecretVisible} navigation={navigation} />,
-    <WanderWumen isSecretVisible={isSecretVisible} navigation={navigation} />,
-    <GreenLantern isSecretVisible={isSecretVisible} navigation={navigation} />,
+  const slides: Slide[] = [
+    {
+      component: (
+        <Flesh isSecretVisible={isSecretVisible} navigation={navigation} />
+      ),
+    },
+    {
+      component: (
+        <WanderWumen
+          isSecretVisible={isSecretVisible}
+          navigation={navigation}
+        />
+      ),
+    },
+    {
+      component: (
+        <GreenLantern
+          isSecretVisible={isSecretVisible}
+          navigation={navigation}
+        />
+      ),
+    },
     // Добавьте дополнительные слайды здесь
   ];
-  const totalSlides = slides.length;
-  console.log(`${countSlider} - 'длина'`);
-  console.log(countSlider);
 
-  const nextSlider = () => {
-    setCountSlider((count) => count - 1 + totalSlides);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = slides.length;
+
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
   };
 
-  const prevSlider = () => {
-    setCountSlider((count) => count - 1 + totalSlides);
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
   };
 
   const handlePress = () => {
@@ -41,75 +59,33 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar />
-      <View style={styles.contentContainer}>
-        <SwiperFlatList
-          index={countSlider}
-          showPagination
-          ref={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-        >
-          {slides.map((slide, index) => (
-            <View key={index} style={styles.slide}>
-              {slide}
-            </View>
-          ))}
-        </SwiperFlatList>
-        <View style={styles.buttonContainer}>
-          <ButtonArrayPrev
-            onPress={() => {
-              if (swiperRef.current) {
-                prevSlider();
-                swiperRef.current.scrollToIndex({ index: countSlider - 1 });
-              }
-            }}
-          />
-          <ButtonArrayNext
-            onPress={() => {
-              if (swiperRef.current) {
-                nextSlider();
-                swiperRef.current.scrollToIndex({ index: countSlider + 1 });
-              }
-            }}
-          />
-        </View>
-        <View style={styles.buttonSecret}>
-          <Button onPress={handlePress} isSecretVisible={isSecretVisible} />
-        </View>
+      <View>{slides[currentSlide].component}</View>
+      <View style={styles.buttonContainer}>
+        <ButtonArrayPrev onPress={prevSlide} />
+        <ButtonArrayNext onPress={nextSlide} />
+      </View>
+      <View style={styles.buttonSecret}>
+        <Button onPress={handlePress} isSecretVisible={isSecretVisible} />
       </View>
     </View>
   );
 };
 
-const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#E9D3B3",
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
-  },
-  contentContainer: {
-    flex: 1,
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  slide: {
-    width,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   buttonContainer: {
-    alignSelf: "center",
     position: "absolute",
-    flexWrap: "wrap",
     flexDirection: "row",
     justifyContent: "space-between",
-    left: 10,
-    right: 10,
+    left: 0,
+    right: 0,
+    bottom: 400,
+    paddingHorizontal: 20,
   },
   buttonSecret: {
     position: "absolute",

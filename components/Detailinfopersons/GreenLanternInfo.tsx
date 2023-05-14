@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 
-const FleshInfo = () => {
+const FleshInfo = React.memo(() => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -36,7 +36,7 @@ const FleshInfo = () => {
       </ImageBackground>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

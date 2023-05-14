@@ -5,13 +5,15 @@ type ButtonArrayPrevProps = {
   onPress: () => void;
 };
 
-const ButtonArrayPrev: React.FC<ButtonArrayPrevProps> = ({ onPress }) => {
-  return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>&lt;</Text>
-    </TouchableOpacity>
-  );
-};
+const ButtonArrayPrev: React.FC<ButtonArrayPrevProps> = React.memo(
+  ({ onPress }) => {
+    return (
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text style={styles.buttonText}>&lt;</Text>
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   button: {

@@ -22,9 +22,11 @@ const GreenLantern: React.FC<FleshProps> = ({
   const [description, setDescription] = useState("");
   const [age, setAge] = useState(0);
   const [city, setCity] = useState("");
+  
   const oldImage = require("./../../assets/Hall_Djordon.png");
   const newImage = require("./../../assets/green_latern_old.png");
   const imagePerson = isSecretVisible ? newImage : oldImage;
+
   useEffect(() => {
     const newName = isSecretVisible ? "Green Lantern" : "Hal Jordan";
     const newDescription = isSecretVisible
