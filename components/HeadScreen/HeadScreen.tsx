@@ -24,13 +24,15 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     // Добавьте дополнительные слайды здесь
   ];
   const totalSlides = slides.length;
+  console.log(`${countSlider} - 'длина'`);
+  console.log(countSlider);
 
   const nextSlider = () => {
-    setCountSlider((count) => (count + 1) % totalSlides);
+    setCountSlider((count) => count - 1 + totalSlides);
   };
 
   const prevSlider = () => {
-    setCountSlider((count) => (count - 1 + totalSlides) % totalSlides);
+    setCountSlider((count) => count - 1 + totalSlides);
   };
 
   const handlePress = () => {
