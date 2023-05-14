@@ -35,7 +35,10 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             <Flesh isSecretVisible={isSecretVisible} navigation={navigation} />
           </View>
           <View style={styles.slide}>
-            <WanderWumen />
+            <WanderWumen
+              isSecretVisible={isSecretVisible}
+              navigation={navigation}
+            />
           </View>
         </SwiperFlatList>
         <View style={styles.buttonContainer}>
@@ -74,26 +77,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     flexDirection: "row",
-    position: 'relative',
-    top: 200
   },
   slide: {
     width,
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonContainer: {
+    alignSelf: "center",
+    position: "absolute",
+    flexWrap: "wrap",
     flexDirection: "row",
     justifyContent: "space-between",
-    position: "absolute",
-    bottom: 600,
     left: 10,
     right: 10,
   },
   buttonSecret: {
     position: "absolute",
-    bottom: 350,
+    bottom: 130,
     flexDirection: "column",
-    flexWrap: "wrap",
     zIndex: 1,
   },
 });
