@@ -7,6 +7,7 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 import WanderWumen from "../persons/WanderWumen";
 import ButtonArrayPrev from "../UI/ButtonArrayPrev";
 import ButtonArrayNext from "../UI/ButtonArrayNext";
+import GreenLantern from "../persons/GreenLantern";
 
 type HomeScreenProps = {
   navigation: any;
@@ -15,6 +16,22 @@ type HomeScreenProps = {
 const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [isSecretVisible, setIsSecretVisible] = useState(false);
   const swiperRef = useRef<SwiperFlatList | null>(null);
+  const [countSlider, setCountSlider] = useState(0);
+  const slides = [
+    <Flesh isSecretVisible={isSecretVisible} navigation={navigation} />,
+    <WanderWumen isSecretVisible={isSecretVisible} navigation={navigation} />,
+    <GreenLantern isSecretVisible={isSecretVisible} navigation={navigation} />,
+    // Добавьте дополнительные слайды здесь
+  ];
+  const totalSlides = slides.length;
+
+  const nextSlider = () => {
+    setCountSlider((count) => (count + 1) % totalSlides);
+  };
+
+  const prevSlider = () => {
+    setCountSlider((count) => (count - 1 + totalSlides) % totalSlides);
+  };
 
   const handlePress = () => {
     setIsSecretVisible(!isSecretVisible);
@@ -25,34 +42,32 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <StatusBar />
       <View style={styles.contentContainer}>
         <SwiperFlatList
-          index={0}
+          index={countSlider}
           showPagination
           ref={(swiper) => {
             swiperRef.current = swiper;
           }}
         >
-          <View style={styles.slide}>
-            <Flesh isSecretVisible={isSecretVisible} navigation={navigation} />
-          </View>
-          <View style={styles.slide}>
-            <WanderWumen
-              isSecretVisible={isSecretVisible}
-              navigation={navigation}
-            />
-          </View>
+          {slides.map((slide, index) => (
+            <View key={index} style={styles.slide}>
+              {slide}
+            </View>
+          ))}
         </SwiperFlatList>
         <View style={styles.buttonContainer}>
           <ButtonArrayPrev
             onPress={() => {
               if (swiperRef.current) {
-                swiperRef.current.scrollToIndex({ index: 0 });
+                prevSlider();
+                swiperRef.current.scrollToIndex({ index: countSlider - 1 });
               }
             }}
           />
           <ButtonArrayNext
             onPress={() => {
               if (swiperRef.current) {
-                swiperRef.current.scrollToIndex({ index: 1 });
+                nextSlider();
+                swiperRef.current.scrollToIndex({ index: countSlider + 1 });
               }
             }}
           />
@@ -64,6 +79,7 @@ const HeadScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     </View>
   );
 };
+
 const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {

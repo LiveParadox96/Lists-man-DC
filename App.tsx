@@ -4,6 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HeadScreen from "./components/HeadScreen/HeadScreen";
 import FleshInfo from "./components/Detailinfopersons/FleshInfo";
 import WanderWumenInfo from "./components/Detailinfopersons/WanderWumenInfo";
+import GreenLantern from "./components/persons/GreenLantern";
+import GreenLanternInfo from "./components/Detailinfopersons/GreenLanternInfo";
 
 // Определение типов для навигации
 type RootStackParamList = {
@@ -24,6 +26,7 @@ const App: React.FC = () => {
         />
         <Stack.Screen name="Flesh" component={FleshInfo} />
         <Stack.Screen name="Wonder Woman" component={WanderWumenInfo} />
+        <Stack.Screen name="Green Lantern" component={GreenLanternInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );
