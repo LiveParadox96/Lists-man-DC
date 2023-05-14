@@ -6,6 +6,7 @@ import ButtonArrayPrev from "../UI/ButtonArrayPrev";
 import WanderWumen from "../persons/WanderWumen";
 import GreenLantern from "../persons/GreenLantern";
 import Button from "./../UI/Button";
+import RadioButton from "../UI/RadioButton";
 
 type Slide = {
   component: JSX.Element;
@@ -67,10 +68,14 @@ const HeadScreen: React.FC<HeadScreenProps> = ({ navigation }) => {
       <View style={styles.buttonSecret}>
         <Button onPress={handlePress} isSecretVisible={isSecretVisible} />
       </View>
+      <View style={styles.radioButtonContainer}>
+        {slides.map((_, index) => (
+          <RadioButton key={index} active={currentSlide === index} />
+        ))}
+      </View>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -92,6 +97,13 @@ const styles = StyleSheet.create({
     bottom: 130,
     flexDirection: "column",
     zIndex: 1,
+  },
+  radioButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 60,
   },
 });
 

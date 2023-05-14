@@ -27,10 +27,10 @@ const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
   useEffect(() => {
     const newDescription = isSecretVisible
       ? "Самый быстрый человек на Земле. Создатель Спидфорса"
-      : "Судмедэксперт, криминалист";
+      : "Судмедэксперт, криминалист, учёный. Имеет свой научный центр";
     const newName = isSecretVisible ? "Flesh" : "Barry Allen";
     const newAge = 26;
-    const newCity = "Ванкувер" 
+    const newCity = "Ванкувер";
 
     setName(newName);
     setDescription(newDescription);
@@ -49,7 +49,6 @@ const Flesh: React.FC<FleshProps> = ({ navigation, isSecretVisible }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   person: {
